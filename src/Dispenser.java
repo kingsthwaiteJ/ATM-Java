@@ -42,7 +42,7 @@ public class Dispenser {
 
     // Check if the requested withdrawal amount is greater or equal to the amount this dispenser holds
     public boolean isViableWithdrawalAmount(int withdrawalAmount) {
-        return withdrawalAmount >= amount;
+        return Math.floor(withdrawalAmount / amount) > 0;
     }
 
     // Determine what quantity can be withdrawn
@@ -53,10 +53,10 @@ public class Dispenser {
     // Withdraw the specified quantity
     public boolean withdraw(double withdrawalQuantity) {
         // Confirm that the requested quantity can be withdrawn
-        if (!this.canWithdrawQuantity(withdrawalQuantity)) {
+        if (!this.canWithdrawQuantity(withdrawalQuantity) || withdrawalQuantity == 0) {
             return false;
         } else {
-            System.out.println("Dispensed " + withdrawalQuantity + " notes");
+            System.out.println("Dispensed " + String.format("%.0f", withdrawalQuantity) + " x $" + String.format("%.0f", this.amount) + " notes");
             quantity -= withdrawalQuantity;
             return true;
         }
