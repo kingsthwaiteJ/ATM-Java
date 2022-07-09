@@ -1,11 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
 interface IWithdrawalQuantity {
     public Dispenser dispenser = null;
     public double quantity = 0;
@@ -154,8 +151,11 @@ public class ATM {
                 successfullyWithdrawnAmount += withdrawalPortion.dispenser.amount * withdrawalPortion.quantity;
             } else {
                 System.out.println(ANSI_RED + "Error! Failed to complete withdrawl." + ANSI_RESET);
-                this.logDispenserStatuses();
                 return;
+            }
+
+            if (successfullyWithdrawnAmount == withdrawalAmount) {
+                break;
             }
         }
 
@@ -171,10 +171,5 @@ public class ATM {
             System.out.println("$" + String.format("%.0f", dispenser.amount) + " Dispenser Quantity Remaining: " + fontColour + dispenser.quantity + ANSI_RESET);
         }
         System.out.println("");
-    }
-
-    private void findWithdrawalOptions(int withdrawalAmount) {
-        
-        
     }
 }
